@@ -32,12 +32,16 @@ df = load_data()
 # 연도 추출
 df["연도"] = df["날짜"].dt.year
 
+# 1950년과 1953년 제외
+df = df[~df["연도"].isin([1950, 1953])]
+
 # 연평균 기온 계산
 annual_temp = (
     df.groupby("연도")["평균기온"]
     .mean()
     .reset_index()
 )
+
 
 # 화면
 st.title("🌡️ 서울의 연평균 기온 변화")
